@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import datetime
+import requests
 
 app = Flask(__name__)
 
@@ -16,13 +17,14 @@ def contacto():
 
 @app.route("/")
 def dashboard():
-    # Example data for the dashboard
-    data = {
-        "visitors": 1234,
-        "page_views": 5678,
-        "user_feedback": [
-            {"date": "2023-04-01", "feedback": "Great site!"},
-            {"date": "2023-04-02", "feedback": "Needs more content."},
-        ],
+    api_key = "1bfa9f67da0f41609cc42654243006"
+    city = "Santa Cruz de la Sierra"
+    url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}&aqi=no"
+    response = requests.get(url).json()
+    weather = {
+        "city": city,
+        "temperature": response["current"]["temp_c"],
+        "description": response["current"]["condition"]["text"],
+        "icon": response["current"]["condition"]["icon"],
     }
-    return render_template("dashboard.html", data=data)
+    return render_template("dashboard.html", weather=weather)
