@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<div>
+    <h2>Statistics</h2>
+    <p>Visitors: {{ data.visitors }}</p>
+    <p>Page Views: {{ data.page_views }}</p>
+</div>
+<div>
+    <h2>User Feedback</h2>
+    <ul>
+        {% for feedback in data.user_feedback %}
+        <li>{{ feedback.date }}: {{ feedback.feedback }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
