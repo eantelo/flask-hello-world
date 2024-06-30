@@ -4,21 +4,17 @@ import datetime
 app = Flask(__name__)
 
 
-@app.route("/")
-def hello_world():
-    return "Erick el Mejor!"
-
-
 @app.route("/contacto")
 def contacto():
     # get today date and time
 
     now = datetime.datetime.now()
+    data = now.strftime("%Y-%m-%d %H:%M:%S")
     # return email and now date and time
-    return "eri@hotmail.com" + now.strftime("%Y-%m-%d %H:%M:%S")
+    return render_template("contacto.html", data=data)
 
 
-@app.route("/dashboard")
+@app.route("/")
 def dashboard():
     # Example data for the dashboard
     data = {
